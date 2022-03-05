@@ -46,14 +46,15 @@
                                 <td><a class="btn btn-primary" href="{{ route('admin.posts.show', $post->slug) }}">View</a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info"
-                                        href="{{ route('admin.posts.edit', $post->slug) }}">Modify</a>
+                                    <a class="btn btn-success" href="{{ route('admin.posts.edit', $post->slug) }}"><i
+                                            class="bi bi-pencil-square"></i></a>
                                 </td>
                                 <td>
                                     <form action="{{ route('admin.posts.destroy', $post) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                        <button type="submit" class="btn btn-danger"><i
+                                                class="bi bi-x-octagon-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -76,14 +77,15 @@
                                         href="{{ route('admin.posts.show', $post->slug) }}">View</a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info"
-                                        href="{{ route('admin.posts.edit', $post->slug) }}">Modify</a>
+                                    <a class="btn btn-success" href="{{ route('admin.posts.edit', $post->slug) }}"><i
+                                            class="bi bi-pencil-square"></i></a>
                                 </td>
                                 <td>
                                     <form action="{{ route('admin.posts.destroy', $post) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                        <button type="submit" class="btn btn-danger"><i
+                                                class="bi bi-x-octagon-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>
