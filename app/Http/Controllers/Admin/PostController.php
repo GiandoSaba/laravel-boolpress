@@ -6,6 +6,7 @@ use App\Model\Post;
 
 use App\Http\Controllers\Controller;
 use App\Model\Category;
+use App\Model\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,7 @@ class PostController extends Controller
     {
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
 
-        return view('admin.posts.index', ['posts' => $posts]);
+        return view('admin.posts.index-user', ['posts' => $posts]);
     }
 
     /**
@@ -43,7 +44,12 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', ['categories' => $categories]);
+        $tags = Tag::all();
+        $data = [
+            'categories' => $categories,
+            'tags' => $tags
+        ];
+        return view('admin.posts.create', $data);
     }
 
     /**
@@ -61,7 +67,8 @@ class PostController extends Controller
             [
                 'title' => 'required|max:240',
                 'content' => 'required',
-                'category_id' => 'exists:App\Model\Category,id'
+                'category_id' => 'exists:App\Model\Category,id',
+                'tags.*' => 'nullable | exists:App\Model\Tag,id'
             ]
         );
 
@@ -70,6 +77,10 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = $post->createSlug($data['title']);
         $post->save();
+
+        if (!empty($data['tags'])) {
+            $post->tags()->attach($data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post->slug);
     }
@@ -93,12 +104,18 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Auth::user()->id != $post->user_id) {
+        if (Auth::user()->id != $post->user_id && !Auth::user()->roles()->get()->contains('1')) {
             abort('403');
         }
         $categories = Category::all();
+        $tags = Tag::all();
+        $data = [
+            'post' => $post,
+            'categories' => $categories,
+            'tags' => $tags
+        ];
 
-        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -111,7 +128,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
-        if (Auth::user()->id != $post->user_id) {
+        if (Auth::user()->id != $post->user_id && !Auth::user()->roles()->get()->contains('1')) {
             abort('403');
         }
 
@@ -120,7 +137,8 @@ class PostController extends Controller
             [
                 'title' => 'required|max:240',
                 'content' => 'required',
-                'category_id' => 'exists:App\Model\Category,id'
+                'category_id' => 'exists:App\Model\Category,id',
+                'tags.*' => 'nullable | exists:App\Model\Tag,id'
             ]
         );
 
@@ -135,6 +153,13 @@ class PostController extends Controller
             $post->category_id = $data['category_id'];
         }
 
+        if (!empty($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->detach();
+        }
+
+
         $post->update();
 
         return redirect()->route('admin.posts.show', $post);
@@ -148,10 +173,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if (Auth::user()->id != $post->user_id) {
+        if (Auth::user()->id != $post->user_id && !Auth::user()->roles()->get()->contains('1')) {
             abort('403');
         }
 
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('status', "Post id $post->id deleted");

@@ -59,7 +59,8 @@
                             </tr>
                         @endforeach
                     @else
-                        @foreach ($posts as $post)
+                        @foreach (Auth::user()->posts()->get()
+        as $post)
                             <tr>
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
@@ -75,19 +76,15 @@
                                         href="{{ route('admin.posts.show', $post->slug) }}">View</a>
                                 </td>
                                 <td>
-                                    @if (Auth::user()->id === $post->user_id)
-                                        <a class="btn btn-info"
-                                            href="{{ route('admin.posts.edit', $post->slug) }}">Modify</a>
-                                    @endif
+                                    <a class="btn btn-info"
+                                        href="{{ route('admin.posts.edit', $post->slug) }}">Modify</a>
                                 </td>
                                 <td>
-                                    @if (Auth::user()->id === $post->user_id)
-                                        <form action="{{ route('admin.posts.destroy', $post) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input class="btn btn-danger" type="submit" value="Delete">
-                                        </form>
-                                    @endif
+                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
