@@ -70,6 +70,15 @@
                         </div>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image Path</label>
+                    <input class="form-control" type="file" id="image" name="image">
+                    @error('image')
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <input class="btn btn-primary" type="submit" value="Save">
             </form>
         </div>

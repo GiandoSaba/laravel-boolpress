@@ -23,7 +23,14 @@
             <div class="col">
                 {{ $post->content }}
             </div>
+            <div class="col">
+                @if (!empty($post->image))
+                    <img class="img-fluid" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+                @endif
+            </div>
         </div>
+
+
 
         <div class="row">
             <div class="col">
