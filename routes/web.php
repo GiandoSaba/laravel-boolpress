@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("{any?}", function () {
-    return view("guest.home");
-})->where(
-    "any",
-    ".*"
-);
-
 Auth::routes();
 
 Route::middleware('auth')
@@ -33,3 +26,7 @@ Route::middleware('auth')
         Route::get('/myposts', 'PostController@indexUser')->name('posts.indexUser');
         Route::resource('posts', 'PostController');
     });
+
+Route::get('{any?}', function ($name = null) {
+    return view('guest.home');
+})->where('any', '.*');
