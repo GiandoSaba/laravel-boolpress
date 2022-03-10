@@ -11,21 +11,21 @@ class PostController extends Controller
 {
     public function index()
     {
-        $products = Post::paginate(20);
+        $posts = Post::paginate(8);
 
         return response()->json([
             'response' => true,
-            'results' =>  $products,
+            'results' =>  $posts,
         ]);
     }
 
     public function inRandomOrder()
     {
-        $products = Post::inRandomOrder()->limit(4)->get();
+        $posts = Post::inRandomOrder()->limit(4)->get();
         return response()->json([
             'response' => true,
             'results' => [
-                'data' => $products
+                'data' => $posts
             ],
         ]);
     }

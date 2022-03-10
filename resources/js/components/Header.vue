@@ -17,16 +17,16 @@ export default {
                     routeName: 'home',
                 },
                 {
-                    label: 'All Products',
-                    routeName: 'products',
+                    label: 'All Posts',
+                    routeName: 'posts',
                 },
                 {
                     label: 'About Us',
                     routeName: 'about',
                 },
                 {
-                    label: 'Product',
-                    routeName: 'product',
+                    label: 'Post',
+                    routeName: 'post',
                 },
             ]
         }

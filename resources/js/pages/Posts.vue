@@ -12,22 +12,30 @@
         </div>
       </div>
     </div>
+    <div class="row mt-3 bg-light" v-if="cards.prev_page_url || cards.next_page_url">
+      <ul class="list-inline bg-light p-2">
+        <li class="list-inline-item"> <button v-if="cards.prev_page_url" class="btn btn-primary" @click="changePage('prev_page_url')">Prev</button></li>
+        <li class="list-inline-item"> <button v-if="cards.next_page_url" class="btn btn-primary" @click="changePage('next_page_url')">Next</button></li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import Axios from "axios";
   export default {
-    name: "Main",
+    name: "Posts",
     data() {
       return {
         cards: {
-            posts: null
+            posts: null,
+            next_page_url: null,
+            prev_page_url: null,
         }
       }
     },
     created() {
-      this.getPosts('http://127.0.0.1:8000/api/v1/posts/random');
+      this.getPosts('http://127.0.0.1:8000/api/v1/posts');
     },
     methods: {
         changePage(vs) {
@@ -40,12 +48,15 @@ import Axios from "axios";
             Axios.get(url).then(
             (result) => {
                 this.cards.posts = result.data.results.data;
+                this.cards.next_page_url = result.data.results.next_page_url;
+                this.cards.prev_page_url = result.data.results.prev_page_url;
             });
+
+            console.log(this.cards);
         }
     }
-}
+  }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 </style>

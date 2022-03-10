@@ -5,8 +5,8 @@ window.Vue = require('vue');
 import App from './views/App';
 import Home from './pages/Home';
 import About from './pages/About';
-import Products from './pages/Products';
-import Product from './pages/Product';
+import Posts from './pages/Posts';
+import Post from './pages/Post';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -25,14 +25,14 @@ const router = new VueRouter({
             component: About,
         },
         {
-            path: '/products',
-            name: 'products',
-            component: Products,
+            path: '/posts',
+            name: 'posts',
+            component: Posts,
         },
         {
-            path: '/product',
-            name: 'product',
-            component: Product,
+            path: '/post',
+            name: 'post',
+            component: Post,
         },
     ]
 });
