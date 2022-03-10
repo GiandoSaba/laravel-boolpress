@@ -1,12 +1,36 @@
 <template>
-  <div>
-      Header
-  </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" v-for="(item, index) in menuItems" :key="index">
+            <router-link class="nav-link" :to="{name: item.routeName}">{{item.label}}</router-link>
+        </li>
+    </ul>
 </template>
 
 <script>
 export default {
     name: 'Header',
+    data() {
+        return {
+            menuItems: [
+                {
+                    label: 'Home',
+                    routeName: 'home',
+                },
+                {
+                    label: 'All Products',
+                    routeName: 'products',
+                },
+                {
+                    label: 'About Us',
+                    routeName: 'about',
+                },
+                {
+                    label: 'Product',
+                    routeName: 'product',
+                },
+            ]
+        }
+    }
 }
 </script>
 

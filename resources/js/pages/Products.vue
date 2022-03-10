@@ -18,26 +18,26 @@
 <script>
 import Axios from "axios";
   export default {
-    name: "Main",
+    name: "Products",
     data() {
       return {
         posts: null
       }
     },
     created() {
-      this.getPosts('http://127.0.0.1:8000/api/v1/posts/random');
+      this.getPosts('http://127.0.0.1:8000/api/v1/posts');
     },
     methods: {
       getPosts(url){
           Axios.get(url).then(
             (result) => {
-              this.posts = result.data.results.data;
+                this.posts = result.data.results.data;
             });
       }
+
     }
-}
+  }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 </style>
