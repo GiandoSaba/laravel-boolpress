@@ -59,6 +59,9 @@
                                 <input type="submit" value="Logout" class="btn btn-default">
                             </form>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Dashboard') }}</a>
+                        </li>
                     @endguest
                 </ul>
             </div>

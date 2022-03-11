@@ -49,12 +49,15 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
                             @method('POST')
                             <input type="submit" value="Logout" class="btn btn-default">
                         </form>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Dashboard') }}</a>
                     </li>
                 @endguest
             </ul>

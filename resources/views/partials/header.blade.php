@@ -17,6 +17,9 @@
                         @csrf
                         <input type="submit" class="btn btn-light" value="Logout">
                     </form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Dashboard') }}</a>
+                    </li>
                 @endguest
             </div>
         </div>

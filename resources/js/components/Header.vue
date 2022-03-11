@@ -24,6 +24,10 @@ export default {
                     label: 'About Us',
                     routeName: 'about',
                 },
+                {
+                    label: 'Contacts Us',
+                    routeName: 'contacts',
+                },
             ]
         }
     }
