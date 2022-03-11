@@ -15,5 +15,6 @@ import Header from '../components/Header';
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~bootstrap/scss/bootstrap';
 </style>

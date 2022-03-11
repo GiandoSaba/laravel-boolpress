@@ -24,10 +24,6 @@ export default {
                     label: 'About Us',
                     routeName: 'about',
                 },
-                {
-                    label: 'Post',
-                    routeName: 'post',
-                },
             ]
         }
     }
